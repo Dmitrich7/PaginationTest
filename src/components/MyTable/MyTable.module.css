@@ -1,0 +1,38 @@
+
+.table{
+    width:100%;
+    text-align: left;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-weight: 600;
+}
+
+.iconHeader{
+    width: 7%;
+
+}
+
+.recordContainer{
+    height: 68px;
+    border-bottom: 1px solid #F2EEEE;
+}
+
+.headersContainer{
+    background: #F6F4F4;
+    height: 44px;
+}
+
+th, td{
+    padding-left: 20px;
+}
+.buttonTd{
+    text-align: right;
+}
+.changeButton{
+    background: url("../../../public/pen_Icon.png") no-repeat center;
+    border: 1px solid #F2EEEE;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    margin-right: 20px;
+}
