@@ -3,8 +3,22 @@
     flex-direction: row;
     justify-content: flex-start;
     padding: 20px;
+    align-items: center;
+    height: 40px;
 }
 
+.sortContainer{
+    margin-right: 16px;
+}
+.sortSelect{
+    width: 120px;
+    height: 40px;
+    border-radius: 6px;
+    margin-left: 10px;
+    background-color: #514A4A;
+    color: white;
+    text-align: center;
+}
 .rightContainer{
     display: inherit;
     margin-left: auto;

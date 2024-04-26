@@ -1,0 +1,79 @@
+.modalContent{
+    box-sizing: border-box;
+    background: white;
+    height: 100%;
+    width: 400px;
+    right: 0;
+    padding: 16px 24px 24px 24px;
+    position: absolute;
+    animation: modalSlide 0.5s forwards;
+}
+@keyframes modalSlide {
+    0%{
+        transform: translateX(400px)
+    }
+    100%{
+        transform: translateX(0px)
+    }
+}
+.navContainer{
+    height: 84px;
+    align-items: center;
+    display: flex;
+}
+.closeBtn{
+    display: block;
+    width: 19px;
+    height: 19px;
+    border: none;
+    cursor: pointer;
+    background: url("../../../public/cross.png") transparent 9px 9px no-repeat;
+    background-position: center;
+    padding: 0px;
+    margin-left: auto;
+}
+.homeButton{
+    background: url("../../../public/house.png") transparent no-repeat;
+    background-position: center;
+    width: 48px;
+    height: 48px;
+    background-color:#FAF4F4;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+.label{
+    font-weight: bold;
+    font-size: 14px;
+
+}
+
+.headLabel{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.input{
+    height: 30px;
+    font-size: 14px;
+    border: 1px solid #DFDDDD;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.headText {
+    color: #8D8585;
+    font-size: 14px;
+}
+
+
+.description{
+    height: 140px;
+    font-size: 14px;
+    border: 1px solid #DFDDDD;
+    width: 100%;
+}
+
+.formGroup{
+    margin-top:16px;
+}

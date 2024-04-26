@@ -21,7 +21,7 @@ const TableControls: FC<TableControlsProps> = ({pagination,currentPage,onCurrent
                 </button>
             ))}
             <label className={styles.selectContainer}>Показывать по:
-                <select onChange={(e)=>onPageSizeChange(+e.target.value)}>
+                <select className={styles.select} onChange={(e)=>onPageSizeChange(+e.target.value)}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={15}>15</option>

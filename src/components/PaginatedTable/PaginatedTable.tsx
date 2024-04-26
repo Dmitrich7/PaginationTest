@@ -7,13 +7,16 @@ import {ITableItems} from "../../types/types";
 import login from "../../api/login";
 import {fetchItems} from "../../api/fetchItems";
 import {returnPaginationRange} from "../../utils/utils";
+import Modal from "../Modal/Modal";
 
 const PaginatedTable = () => {
     const [tableItems,setTableItems] = useState<ITableItems[]>([]);
     const [itemsTotal,setItemsTotal] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [pageSize,setPageSize] = useState(5);
+    const [pageSize,setPageSize] = useState<number>(5);
     const [pagination, setPagination] = useState<(string|number)[]>([]);
+    const [selectedSort, setSelectedSort] = useState<string>("");
+    const [searchQuery,setSearchQuery] = useState<string>("");
 
     useEffect(()=>{
         login().then((res)=>{
@@ -26,18 +29,41 @@ const PaginatedTable = () => {
             )
         })
     }, [currentPage,pageSize]);
-
     const handlePageChange = (current:number) =>{
         setCurrentPage(current);
     }
     const handlePageSizeChange = (size:number) =>{
         setPageSize(size)
     }
+    const sortTableItems = (sort:string) => {
+        setSelectedSort(sort);
+        switch (sort) {
+            case "ascending":
+                setTableItems([...tableItems].sort((a, b) => a.name > b.name ? 1 : -1));
+                break;
+            case "descending":
+                setTableItems([...tableItems].sort((a, b) => a.name < b.name ? 1 : -1));
+                break;
+        }
+    };
+    const handleSearchQuery = (query: string) =>{
+        setSearchQuery(query)
+    }
+    const handleCreateQueryButton = (tableItem: ITableItems) =>{
+        console.log(tableItem)
+    }
     return (
         <>
-            <Navbar itemsTotal={itemsTotal}/>
+            <Navbar
+                itemsTotal={itemsTotal}
+                onSortSelectChange={sortTableItems}
+                handleSearchQuery={handleSearchQuery}
+            />
             <div className={styles.tableContainer}>
-                <MyTable tableItems={tableItems}/>
+                <MyTable
+                    tableItems={tableItems.filter(item => item.name.includes(searchQuery.toString()))}
+                    onCreateQueryButtonClick={handleCreateQueryButton}
+                />
                 <TableControls
                     pagination={pagination}
                     currentPage={currentPage}
