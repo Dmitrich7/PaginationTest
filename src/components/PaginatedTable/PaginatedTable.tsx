@@ -8,8 +8,10 @@ import login from "../../api/login";
 import {fetchItems} from "../../api/fetchItems";
 import {returnPaginationRange} from "../../utils/utils";
 import Modal from "../Modal/Modal";
+import Cookies from "universal-cookie";
 
 const PaginatedTable = () => {
+    const cookies = new Cookies();
     const [tableItems,setTableItems] = useState<ITableItems[]>([]);
     const [itemsTotal,setItemsTotal] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -20,6 +22,7 @@ const PaginatedTable = () => {
 
     useEffect(()=>{
         login().then((res)=>{
+            cookies.set("Authorization",res?.data['access_token'])
             fetchItems(res?.data['access_token'],currentPage,pageSize).then(
                 (res)=>{
                     setTableItems(res?.data.result??[]);
@@ -38,19 +41,20 @@ const PaginatedTable = () => {
     const sortTableItems = (sort:string) => {
         setSelectedSort(sort);
         switch (sort) {
+            case "none":
+                break
             case "ascending":
                 setTableItems([...tableItems].sort((a, b) => a.name > b.name ? 1 : -1));
                 break;
             case "descending":
                 setTableItems([...tableItems].sort((a, b) => a.name < b.name ? 1 : -1));
                 break;
+            default:
+                break
         }
     };
     const handleSearchQuery = (query: string) =>{
         setSearchQuery(query)
-    }
-    const handleCreateQueryButton = (tableItem: ITableItems) =>{
-        console.log(tableItem)
     }
     return (
         <>
@@ -62,7 +66,6 @@ const PaginatedTable = () => {
             <div className={styles.tableContainer}>
                 <MyTable
                     tableItems={tableItems.filter(item => item.name.includes(searchQuery.toString()))}
-                    onCreateQueryButtonClick={handleCreateQueryButton}
                 />
                 <TableControls
                     pagination={pagination}

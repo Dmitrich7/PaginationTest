@@ -3,7 +3,6 @@ import {ITableItems} from "../../types/types";
 import styles from './MyTable.module.css';
 import Portal from '../Portal/Portal';
 import Modal from "../Modal/Modal";
-import {Transition} from "react-transition-group";
 
 
 interface IMyTableProps{
@@ -12,20 +11,22 @@ interface IMyTableProps{
 
 const MyTable: FC<IMyTableProps> = ({tableItems}) => {
     const [modalActive,setModalActive] = useState(false);
+    const [currentItem, setCurrentItem] = useState<ITableItems>();
     const handleFormClick = (item:ITableItems)=>{
         setModalActive(true)
+        setCurrentItem(item)
     }
 
     return (
         <>
             <table className={styles.table}>
                 <thead className={styles.headersContainer}>
-                <tr>
-                    <th className={styles.th}>Названиe</th>
-                    <th>Единица измерения</th>
-                    <th>Артикул/код</th>
-                    <th className={styles.iconHeader}></th>
-                </tr>
+                    <tr>
+                        <th className={styles.th}>Названиe</th>
+                        <th>Единица измерения</th>
+                        <th>Артикул/код</th>
+                        <th className={styles.iconHeader}></th>
+                    </tr>
                 </thead>
                 <tbody>
                 {tableItems.map(item=>(
@@ -41,7 +42,12 @@ const MyTable: FC<IMyTableProps> = ({tableItems}) => {
             {
                 modalActive?
                     <Portal className={styles.portal}>
-                        <Modal setModalActive={setModalActive}/>
+                        <Modal
+                            setModalActive={setModalActive}
+                            currentItem={currentItem}
+                            headLabel={"Редактировать позицию " + currentItem?.name}
+                            headText={"Заполните поля, которые хотите отредактировать. Незаполненые поля остануться неизменёнными"}
+                        />
                     </Portal>
                     :
                     null

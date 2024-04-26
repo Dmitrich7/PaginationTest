@@ -22,6 +22,7 @@ const Navbar: FC<INavbarProps> = ({itemsTotal,onSortSelectChange,handleSearchQue
                 <div className={styles.sortContainer}>
                     <label>Сортировать названия по:
                         <select  className={styles.sortSelect} onChange={(e)=>onSortSelectChange(e.target.value)}>
+                            <option value="none"></option>
                             <option value="ascending">возрастанию</option>
                             <option value="descending">убыванию</option>
                         </select>

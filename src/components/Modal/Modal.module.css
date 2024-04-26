@@ -57,8 +57,12 @@
     height: 30px;
     font-size: 14px;
     border: 1px solid #DFDDDD;
-    width: 100%;
+    width: 96%;
     margin-top: 5px;
+    padding-right: 0;
+    padding-left: 12px;
+    padding-bottom: 8px;
+    padding-top: 8px;
 }
 
 .headText {
@@ -71,9 +75,39 @@
     height: 140px;
     font-size: 14px;
     border: 1px solid #DFDDDD;
-    width: 100%;
+    width: 95%;
+    padding-left: 12px;
+    padding-bottom: 8px;
+    padding-top: 8px;
 }
 
 .formGroup{
     margin-top:16px;
+}
+
+.buttonGroup{
+    position: fixed;
+    bottom: 0;
+}
+
+.cancelButton{
+    width: 170px;
+    height: 40px;
+    padding: 0px 14px 0px 14px;
+    border-radius: 6px;
+    background: #514A4A;
+    margin-right: 12px;
+    cursor: pointer;
+    color: white;
+}
+
+.confirmButton{
+    width: 170px;
+    height: 40px;
+    padding: 0px 14px 0px 14px;
+    border-radius: 6px;
+    background: #A85757;
+    margin-bottom: 24px;
+    cursor: pointer;
+    color: white;
 }
