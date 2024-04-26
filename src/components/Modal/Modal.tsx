@@ -1,13 +1,13 @@
 import React, {FC, useEffect, useState} from 'react';
 import styles from './Modal.module.css'
 import {ITableItems} from "../../types/types";
-import {patchItem} from "../../api/patchItem";
 
 interface IModalProps{
     setModalActive: (arg0: boolean)=>void;
     headLabel:string;
     headText:string;
     currentItem?: ITableItems;
+    handleSubmit:(arg0:ITableItems,arg1:string)=>void
 }
 
 const Modal: FC<IModalProps> = (props) => {
@@ -22,14 +22,12 @@ const Modal: FC<IModalProps> = (props) => {
         setModalActive,
         headLabel,
         headText,
-        currentItem
+        currentItem,
+        handleSubmit
     }=props;
     const [formData, setFormData] = useState<ITableItems>(currentItem??defaultData)
     const handleChange = (e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=>{
         setFormData({...formData,[e.target.name]:e.target.value})
-    }
-    const handleSubmit = (e:React.FormEvent<HTMLFormElement>)=>{
-        patchItem(currentItem?.id??"",formData)
     }
     return (
         <div className={styles.modalContent}>
@@ -37,7 +35,7 @@ const Modal: FC<IModalProps> = (props) => {
                 <button className={styles.homeButton}></button>
                 <button onClick={()=>setModalActive(false)} className={styles.closeBtn}></button>
             </div>
-            <form id="itemForm" onSubmit={(e)=>handleSubmit(e)}>
+            <form id="itemForm" onSubmit={()=>handleSubmit(formData,currentItem?.id??"")}>
                 <div className={styles.formGroup}>
                     <label className={styles.headLabel}>{headLabel}</label>
                     <div><span className={styles.headText}>{headText}</span></div>

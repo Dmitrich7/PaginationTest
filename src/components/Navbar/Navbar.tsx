@@ -1,6 +1,11 @@
-import React, {FC, FormEvent} from 'react';
+import React, {FC, useState} from 'react';
 import styles from './Navbar.module.css'
 import SearchBox from "../SearchBox/SearchBox";
+import Portal from "../Portal/Portal";
+import Modal from "../Modal/Modal";
+import {ITableItems} from "../../types/types";
+import {postItem} from "../../api/postItem";
+import uuid from "react-uuid";
 
 interface INavbarProps{
     itemsTotal: number;
@@ -9,7 +14,11 @@ interface INavbarProps{
 }
 
 const Navbar: FC<INavbarProps> = ({itemsTotal,onSortSelectChange,handleSearchQuery}) => {
-
+    const [modalActive, setModalActive] = useState(false)
+    const handleSubmit = (formData:ITableItems)=>{
+        formData.id=uuid();
+        postItem(formData)
+    }
     return (
         <header className={styles.container}>
             <div className={styles.spanContainer} >
@@ -29,8 +38,21 @@ const Navbar: FC<INavbarProps> = ({itemsTotal,onSortSelectChange,handleSearchQue
                     </label>
                 </div>
                 <SearchBox handleSearchQuery={handleSearchQuery}/>
-                <button className={styles.newPos}><span className={styles.icon}></span>Новая позиция</button>
+                <button className={styles.newPos} onClick={()=>setModalActive(true)}><span className={styles.icon}></span>Новая позиция</button>
             </div>
+            {
+                modalActive?
+                    <Portal className={styles.portal}>
+                        <Modal
+                            setModalActive={setModalActive}
+                            handleSubmit={handleSubmit}
+                            headLabel={"Новая позиция"}
+                            headText={"Заполните все поля для создания новой номенклатуры"}
+                        />
+                    </Portal>
+                    :
+                    null
+            }
         </header>
     );
 };

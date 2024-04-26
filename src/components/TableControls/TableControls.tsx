@@ -9,6 +9,7 @@ interface TableControlsProps{
 }
 
 const TableControls: FC<TableControlsProps> = ({pagination,currentPage,onCurrentPageChange,onPageSizeChange}) => {
+
     return (
         <div className={styles.tableControlsContainer}>
             {pagination?.map((value:number|string)=>(

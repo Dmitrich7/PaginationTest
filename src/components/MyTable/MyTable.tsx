@@ -3,7 +3,7 @@ import {ITableItems} from "../../types/types";
 import styles from './MyTable.module.css';
 import Portal from '../Portal/Portal';
 import Modal from "../Modal/Modal";
-
+import {patchItem} from "../../api/patchItem";
 
 interface IMyTableProps{
     tableItems: ITableItems[];
@@ -16,7 +16,9 @@ const MyTable: FC<IMyTableProps> = ({tableItems}) => {
         setModalActive(true)
         setCurrentItem(item)
     }
-
+    const handleSubmit = (formData:ITableItems,id:string) =>{
+        patchItem(id,formData);
+    }
     return (
         <>
             <table className={styles.table}>
@@ -45,6 +47,7 @@ const MyTable: FC<IMyTableProps> = ({tableItems}) => {
                         <Modal
                             setModalActive={setModalActive}
                             currentItem={currentItem}
+                            handleSubmit={handleSubmit}
                             headLabel={"Редактировать позицию " + currentItem?.name}
                             headText={"Заполните поля, которые хотите отредактировать. Незаполненые поля остануться неизменёнными"}
                         />
